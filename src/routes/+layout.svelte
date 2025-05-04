@@ -39,7 +39,7 @@
       </a>
       
       <nav>
-        <a href="/">Blog</a>
+        <a href="/blog?page=1">Blog</a>
         <a href="/about">About</a>
         <button class="search-button" aria-label="Search">
           <Search size={20} />

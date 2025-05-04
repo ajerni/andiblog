@@ -81,7 +81,8 @@ export async function fetchAllPosts(): Promise<void> {
   postsStore.update(state => ({ ...state, isLoading: true }));
 
   try {
-    const response = await fetch(`${API_URL}/posts`);
+    // Request 100 posts to make sure we get all of them
+    const response = await fetch(`${API_URL}/posts?limit=100`);
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status}`);
@@ -96,6 +97,8 @@ export async function fetchAllPosts(): Promise<void> {
       error: null,
       data
     }));
+
+    console.log('Loaded posts count:', data.posts.length);
   } catch (error) {
     console.error('Error fetching posts:', error);
     postsStore.update(state => ({
