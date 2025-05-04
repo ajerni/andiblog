@@ -61,52 +61,68 @@ export const postsStore = writable<PostsStore>(initialState);
 // API URL for fetching posts
 const API_URL = 'https://phpapi.andierni.ch/api';
 
+// Keep track of fetch promises to prevent multiple simultaneous calls
+let fetchPromise: Promise<void> | null = null;
+
 /**
  * Fetch all posts from the API and update the store
  */
 export async function fetchAllPosts(): Promise<void> {
-  // Don't fetch if already loading or loaded
-  let currentState: PostsStore = initialState;
+  // If we have an existing fetch in progress, return that promise
+  if (fetchPromise) return fetchPromise;
   
   // Get current state first
+  let currentState: PostsStore;
   const unsubscribe = postsStore.subscribe(state => {
     currentState = state;
   });
   unsubscribe();
   
-  // Skip if already loading or loaded
-  if (currentState.isLoading || currentState.isLoaded) return;
+  // If already loaded and not in an error state, just return
+  if (currentState!.isLoaded && !currentState!.error) {
+    return Promise.resolve();
+  }
   
   // Set loading state
   postsStore.update(state => ({ ...state, isLoading: true }));
 
-  try {
-    // Request 100 posts to make sure we get all of them
-    const response = await fetch(`${API_URL}/posts?limit=100`);
-    
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
-    
-    const data: PostsData = await response.json();
-    
-    postsStore.update(state => ({
-      ...state,
-      isLoaded: true,
-      isLoading: false,
-      error: null,
-      data
-    }));
+  // Create the fetch promise
+  fetchPromise = new Promise(async (resolve) => {
+    try {
+      // Request 100 posts to make sure we get all of them
+      const response = await fetch(`${API_URL}/posts?limit=100&_=${Date.now()}`);
+      
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      
+      const data: PostsData = await response.json();
+      
+      postsStore.update(state => ({
+        ...state,
+        isLoaded: true,
+        isLoading: false,
+        error: null,
+        data
+      }));
 
-    console.log('Loaded posts count:', data.posts.length);
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    postsStore.update(state => ({
-      ...state,
-      isLoading: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred'
-    }));
-  }
+      console.log('Loaded posts count:', data.posts.length);
+      resolve();
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      postsStore.update(state => ({
+        ...state,
+        isLoading: false,
+        error: error instanceof Error ? error.message : 'Unknown error occurred'
+      }));
+      resolve();
+    } finally {
+      // Clear the promise when done
+      fetchPromise = null;
+    }
+  });
+  
+  return fetchPromise;
 }
 
 /**

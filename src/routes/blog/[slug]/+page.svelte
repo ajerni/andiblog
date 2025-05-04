@@ -1,17 +1,29 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { postsStore, formatDate, getPostBySlug } from '$lib/stores/posts';
+  import { postsStore, formatDate, getPostBySlug, fetchAllPosts } from '$lib/stores/posts';
   import type { Post } from '$lib/stores/posts';
   
   export let data: { slug: string; post: Post | null };
   
-  // Use the post from data provided by the load function
-  $: post = data.post;
+  // Track if we're trying to load the post
+  let isLoading = true;
+  let isDirectAccess = false;
   
-  // Fallback to getPostBySlug if post is not provided in data
-  onMount(() => {
-    if (!post) {
-      post = getPostBySlug(data.slug);
+  // Use the post from data provided by the load function
+  $: post = data.post || getPostBySlug(data.slug);
+  
+  // Handle direct access to the page
+  onMount(async () => {
+    isDirectAccess = !$postsStore.isLoaded && !$postsStore.isLoading;
+    
+    if (isDirectAccess) {
+      try {
+        await fetchAllPosts();
+      } finally {
+        isLoading = false;
+      }
+    } else {
+      isLoading = false;
     }
   });
 </script>
@@ -32,7 +44,7 @@
       <p class="error-message">{$postsStore.error}</p>
       <a href="/" class="back-link">← Back to home</a>
     </div>
-  {:else if $postsStore.isLoading && !post}
+  {:else if isLoading || $postsStore.isLoading}
     <div class="loading">
       <p>Loading post...</p>
     </div>
