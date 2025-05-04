@@ -164,9 +164,12 @@
   }
   
   .page-link.active {
-    background-color: var(--primary-color);
+    background-color: #4299e1;
     color: white;
-    border-color: var(--primary-color);
+    border-color: #4299e1;
+    font-weight: bold;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .page-link.page-number {

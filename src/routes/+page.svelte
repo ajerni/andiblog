@@ -79,17 +79,18 @@
   }
   
   .view-all-button {
-    background-color: var(--primary-color);
+    background-color: #4299e1;
     color: white;
     font-weight: 600;
     padding: 0.75rem 1.5rem;
     border-radius: 0.375rem;
     text-decoration: none;
     transition: background-color 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .view-all-button:hover {
-    background-color: var(--primary-color-dark);
+    background-color: #2b6cb0;
   }
   
   @media (max-width: 1024px) {
