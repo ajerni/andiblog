@@ -1,7 +1,10 @@
 import { browser } from '$app/environment';
 import { fetchAllPosts } from '$lib/stores/posts';
 
+// Tell SvelteKit to prerender everything for static hosting
 export const prerender = true;
+
+// This ensures SSR is used for the prerendering
 export const ssr = true;
 
 /**
