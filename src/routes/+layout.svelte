@@ -2,6 +2,8 @@
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   import Search from '$lib/icons/Search.svelte';
+  import SearchComponent from '$lib/components/Search.svelte';
+  import { showSearch } from '$lib/stores/SearchStore';
 
   // Create a store for dark mode state
   const darkMode = writable(false);
@@ -41,7 +43,12 @@
       <nav>
         <a href="/blog?page=1">Blog</a>
         <a href="/about">About</a>
-        <button class="search-button" aria-label="Search">
+        <button 
+          class="search-button" 
+          aria-label="Search" 
+          on:click={() => $showSearch = true}
+          title="Search (⌘+K)"
+        >
           <Search size={20} />
         </button>
         <button on:click={toggleDarkMode} class="theme-toggle" aria-label="Toggle dark mode">
@@ -70,6 +77,9 @@
     </div>
   </footer>
 </div>
+
+<!-- Add the search component -->
+<SearchComponent />
 
 <style>
   :global(html) {
@@ -104,6 +114,18 @@
     --link-hover-color: #90cdf4;
     --tag-bg-color: #2d3748;
     --tag-text-color: #e2e8f0;
+  }
+
+  /* Highlight style for search results */
+  :global(.highlight) {
+    background-color: rgba(245, 158, 11, 0.2);
+    font-weight: bold;
+    padding: 0 0.1rem;
+    border-radius: 0.125rem;
+  }
+  
+  :global(.dark .highlight) {
+    background-color: rgba(245, 158, 11, 0.3);
   }
 
   :global(body) {
