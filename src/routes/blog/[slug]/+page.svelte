@@ -3,13 +3,16 @@
   import { postsStore, formatDate, getPostBySlug } from '$lib/stores/posts';
   import type { Post } from '$lib/stores/posts';
   
-  export let data: { slug: string };
+  export let data: { slug: string; post: Post | null };
   
-  let post: Post | null = null;
+  // Use the post from data provided by the load function
+  $: post = data.post;
   
+  // Fallback to getPostBySlug if post is not provided in data
   onMount(() => {
-    // Try to get post from the store
-    post = getPostBySlug(data.slug);
+    if (!post) {
+      post = getPostBySlug(data.slug);
+    }
   });
 </script>
 

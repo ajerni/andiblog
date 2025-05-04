@@ -1,7 +1,7 @@
-import { postsStore, fetchAllPosts } from '$lib/stores/posts';
+import { postsStore, fetchAllPosts, getPostBySlug } from '$lib/stores/posts';
 
-// Explicitly set these routes to be prerendered
-export const prerender = true;
+// Allow both prerendered and SPA mode
+export const prerender = 'auto';
 
 // Get all possible slug values for prerendering
 export async function entries() {
@@ -22,8 +22,19 @@ export async function entries() {
 }
 
 /** @type {import('./$types').PageLoad} */
-export function load({ params }) {
+export async function load({ params, fetch, depends }) {
+  // This allows the page to be re-evaluated when data changes
+  depends('app:posts');
+  
+  // Ensure posts are loaded
+  await fetchAllPosts();
+  
+  // Get the specific post from the store
+  const post = getPostBySlug(params.slug);
+  
+  // If post not found, this will let the page component handle it
   return {
-    slug: params.slug
+    slug: params.slug,
+    post
   };
 } 

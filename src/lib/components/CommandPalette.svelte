@@ -4,7 +4,6 @@
   import { onMount } from 'svelte';
   import { postsStore } from '../stores/posts';
   import type { Post } from "../stores/posts";
-  import { goto } from "$app/navigation";
 
   export let showResults = true;
   export let placeholder = "Search...";
@@ -15,6 +14,7 @@
   let input: HTMLInputElement;
   let isSearching = false;
   let availablePosts: Post[] = [];
+  let searchContainer: HTMLDivElement;
   
   export let value: string = "";
 
@@ -26,8 +26,18 @@
   });
 
   onMount(() => {
+    // Set up a click event listener on the document to detect clicks outside the search
+    const handleClickOutside = (event: MouseEvent) => {
+      if ($showSearch && searchContainer && !searchContainer.contains(event.target as Node)) {
+        $showSearch = false;
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       unsubscribe();
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   });
 
@@ -37,12 +47,6 @@
       input?.focus();
     }, 200);
   };
-
-  // Navigate to a post using SvelteKit's goto
-  function navigateToPost(path: string) {
-    $showSearch = false;
-    goto(path);
-  }
 
   // Search through the already loaded posts
   function search() {
@@ -162,7 +166,10 @@
     class="search-overlay"
     transition:fade={{ duration: 150 }}
   >
-    <div class="search-container">
+    <div 
+      class="search-container"
+      bind:this={searchContainer}
+    >
       <div class="search-box">
         <input
           type="text"
@@ -177,7 +184,8 @@
 
               // navigate to current selection
               if (currentSelection >= 0 && currentSelection < results.length) {
-                navigateToPost(results[currentSelection].href);
+                $showSearch = false;
+                window.location.href = results[currentSelection].href;
               } else {
                 $showSearch = false;
               }
@@ -234,15 +242,18 @@
           {:else if results.length > 0}
             <div class="results-list">
               {#each results as result, i}
-                <!-- Use button instead of anchor to have more control over navigation -->
-                <button 
+                <!-- Use a real anchor tag with data-sveltekit attributes -->
+                <a 
+                  href={result.href}
                   class="result-item {i === currentSelection ? 'selected' : ''}"
                   on:mousemove={() => (currentSelection = i)}
-                  on:click={() => navigateToPost(result.href)}
+                  data-sveltekit-preload-data="hover"
+                  data-sveltekit-reload
+                  on:click={() => { $showSearch = false; }}
                 >
                   <h3>{@html result.title}</h3>
                   <p>{@html result.content}</p>
-                </button>
+                </a>
               {/each}
             </div>
           {:else}
@@ -357,6 +368,8 @@
     cursor: pointer;
     transition: background-color 0.2s;
     border-bottom: 1px solid #f1f1f1;
+    text-decoration: none;
+    color: inherit;
   }
 
   :global(.dark) .result-item {

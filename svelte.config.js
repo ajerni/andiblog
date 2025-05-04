@@ -17,8 +17,13 @@ const config = {
 			assets: 'build',
 			fallback: 'index.html',
 			precompress: false,
-			strict: true
-		})
+			strict: false
+		}),
+		
+		// Enable path rewriting in the browser for SPA mode
+		paths: {
+			relative: false
+		}
 	}
 };
 
