@@ -1,7 +1,11 @@
 import { fetchAllPosts } from '$lib/stores/posts';
+import { dev } from '$app/environment';
 
-// Allow both prerendered and SPA mode
-export const prerender = 'auto';
+// Disable prerendering for the blog page with query params
+export const prerender = false;
+
+// Enable SPA navigation for this route
+export const ssr = dev;
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ url, depends }) {
@@ -11,8 +15,8 @@ export async function load({ url, depends }) {
   // Ensure posts are loaded
   await fetchAllPosts();
   
-  return {
-    // Get current page from URL query parameter
-    page: parseInt(url.searchParams.get('page') || '1', 10)
-  };
+  // Get the page query parameter or default to page 1
+  const page = parseInt(url.searchParams.get('page') || '1', 10);
+  
+  return { page };
 } 

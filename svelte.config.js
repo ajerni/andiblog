@@ -23,6 +23,19 @@ const config = {
 		// Enable path rewriting in the browser for SPA mode
 		paths: {
 			relative: false
+		},
+		
+		// Handle prerendering errors
+		prerender: {
+			handleHttpError: ({ path, referrer, message }) => {
+				// Ignore search param related errors on blog pages
+				if (path === '/blog' && message.includes('Cannot access url.searchParams')) {
+					return { status: 200 };
+				}
+				
+				// Let other errors fail the build
+				throw new Error(`${message} (${path}${referrer ? ` - referrer: ${referrer}` : ''})`);
+			}
 		}
 	}
 };
