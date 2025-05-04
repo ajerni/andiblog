@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import { postsStore } from '../stores/posts';
   import type { Post } from "../stores/posts";
+  import { goto } from "$app/navigation";
 
   export let showResults = true;
   export let placeholder = "Search...";
@@ -36,6 +37,12 @@
       input?.focus();
     }, 200);
   };
+
+  // Navigate to a post using SvelteKit's goto
+  function navigateToPost(path: string) {
+    $showSearch = false;
+    goto(path);
+  }
 
   // Search through the already loaded posts
   function search() {
@@ -72,11 +79,12 @@
         // Create a simple excerpt from content if needed
         const excerpt = post.excerpt || (post.content ? post.content.substring(0, 150) + '...' : '');
         
-        // Highlight the search term in the content
+        // Highlight the search term in the content and title
         const highlightedExcerpt = highlightSearchTerm(excerpt, value);
+        const highlightedTitle = highlightSearchTerm(post.title, value);
 
         return {
-          title: post.title,
+          title: highlightedTitle,
           content: highlightedExcerpt,
           href: `/blog/${post.slug}`
         };
@@ -169,7 +177,7 @@
 
               // navigate to current selection
               if (currentSelection >= 0 && currentSelection < results.length) {
-                window.location.href = results[currentSelection].href;
+                navigateToPost(results[currentSelection].href);
               } else {
                 $showSearch = false;
               }
@@ -226,14 +234,15 @@
           {:else if results.length > 0}
             <div class="results-list">
               {#each results as result, i}
-                <a
-                  href={result.href}
+                <!-- Use button instead of anchor to have more control over navigation -->
+                <button 
                   class="result-item {i === currentSelection ? 'selected' : ''}"
                   on:mousemove={() => (currentSelection = i)}
+                  on:click={() => navigateToPost(result.href)}
                 >
-                  <h3>{result.title}</h3>
+                  <h3>{@html result.title}</h3>
                   <p>{@html result.content}</p>
-                </a>
+                </button>
               {/each}
             </div>
           {:else}
@@ -335,14 +344,27 @@
   }
 
   .results-list {
-    padding: 8px 0;
+    padding: 0;
   }
 
   .result-item {
     display: block;
-    padding: 12px 16px;
-    text-decoration: none;
+    width: 100%;
+    padding: 16px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
     transition: background-color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+  }
+
+  :global(.dark) .result-item {
+    border-bottom: 1px solid #2d3748;
+  }
+
+  .result-item:last-child {
+    border-bottom: none;
   }
 
   .result-item:hover,
@@ -356,8 +378,8 @@
   }
 
   .result-item h3 {
-    margin: 0 0 4px 0;
-    font-size: 16px;
+    margin: 0 0 6px 0;
+    font-size: 18px;
     font-weight: 600;
     color: #2d3748;
   }
@@ -370,9 +392,7 @@
     margin: 0;
     font-size: 14px;
     color: #718096;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.4;
   }
 
   :global(.dark) .result-item p {
