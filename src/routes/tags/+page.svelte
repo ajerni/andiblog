@@ -26,7 +26,7 @@
   
   // Calculate tags from store
   $: {
-    if ($postsStore.data && $postsStore.data.posts && $postsStore.data.posts.length > 0) {
+    if ($postsStore && $postsStore.data && $postsStore.data.posts && $postsStore.data.posts.length > 0) {
       console.log('Posts available in store, calculating tags...');
       console.log('Number of posts:', $postsStore.data.posts.length);
       
@@ -35,13 +35,13 @@
       
       // Count occurrences of each tag
       $postsStore.data.posts.forEach(post => {
-        if (post.tags && Array.isArray(post.tags)) {
+        if (post && post.tags && Array.isArray(post.tags)) {
           post.tags.forEach(tag => {
             const currentCount = tagMap.get(tag) || 0;
             tagMap.set(tag, currentCount + 1);
           });
         } else {
-          console.warn('Post without tags or non-array tags:', post.id, post.title);
+          console.warn('Post without tags or non-array tags:', post?.id, post?.title);
         }
       });
       

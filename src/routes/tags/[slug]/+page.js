@@ -1,7 +1,7 @@
 import { fetchAllPosts } from '$lib/stores/posts';
 
-// Allow prerendering
-export const prerender = true;
+// Use auto prerendering mode
+export const prerender = 'auto';
 
 /**
  * Load function ensures posts data is available and passes slug param

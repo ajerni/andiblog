@@ -34,15 +34,11 @@
   });
   
   // Filter posts by the specified tag
-  $: {
-    if (decodedTag) {
-      console.log("Filtering posts for tag:", decodedTag);
-    }
-  }
-  
-  $: filteredPosts = $postsStore.data.posts.filter(post => 
-    post.tags && Array.isArray(post.tags) && post.tags.includes(decodedTag)
-  );
+  $: filteredPosts = $postsStore && $postsStore.data && $postsStore.data.posts 
+    ? $postsStore.data.posts.filter(post => 
+        post && post.tags && Array.isArray(post.tags) && post.tags.includes(decodedTag)
+      )
+    : [];
   
   $: if (filteredPosts.length > 0) {
     console.log(`Found ${filteredPosts.length} posts with tag "${decodedTag}"`);
