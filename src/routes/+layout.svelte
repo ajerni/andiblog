@@ -99,6 +99,9 @@
     --link-hover-color: #2b6cb0;
     --tag-bg-color: #edf2f7;
     --tag-text-color: #4a5568;
+    --primary-color: #3b82f6;
+    --primary-color-dark: #2563eb;
+    --primary-color-light: #93c5fd;
   }
 
   :global(html.dark) {
@@ -116,6 +119,9 @@
     --link-hover-color: #90cdf4;
     --tag-bg-color: #2d3748;
     --tag-text-color: #e2e8f0;
+    --primary-color: #60a5fa;
+    --primary-color-dark: #3b82f6;
+    --primary-color-light: #bfdbfe;
   }
 
   /* Highlight style for search results */
