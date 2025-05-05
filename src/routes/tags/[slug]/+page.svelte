@@ -118,32 +118,31 @@
     <!-- Pagination -->
     {#if totalPages > 1}
       <div class="pagination">
-        <button 
-          class="pagination-button" 
-          disabled={currentPage === 1}
-          on:click={() => changePage(currentPage - 1)}
+        <a 
+          href={currentPage > 1 ? `/tags/${encodeURIComponent(decodedTag)}?page=${currentPage - 1}` : null}
+          class="page-link {currentPage === 1 ? 'disabled' : ''}"
+          on:click|preventDefault={() => currentPage > 1 && changePage(currentPage - 1)}
         >
           Previous
-        </button>
+        </a>
         
-        <div class="page-numbers">
-          {#each pageNumbers as pageNum}
-            <button 
-              class="page-number {currentPage === pageNum ? 'active' : ''}"
-              on:click={() => changePage(pageNum)}
-            >
-              {pageNum}
-            </button>
-          {/each}
-        </div>
+        {#each pageNumbers as pageNum}
+          <a 
+            href={`/tags/${encodeURIComponent(decodedTag)}?page=${pageNum}`}
+            class="page-link page-number {currentPage === pageNum ? 'active' : ''}"
+            on:click|preventDefault={() => changePage(pageNum)}
+          >
+            {pageNum}
+          </a>
+        {/each}
         
-        <button 
-          class="pagination-button" 
-          disabled={currentPage === totalPages}
-          on:click={() => changePage(currentPage + 1)}
+        <a 
+          href={currentPage < totalPages ? `/tags/${encodeURIComponent(decodedTag)}?page=${currentPage + 1}` : null}
+          class="page-link {currentPage === totalPages ? 'disabled' : ''}"
+          on:click|preventDefault={() => currentPage < totalPages && changePage(currentPage + 1)}
         >
           Next
-        </button>
+        </a>
       </div>
     {/if}
   {/if}
@@ -210,55 +209,44 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
-    gap: 1rem;
+    gap: 0.5rem;
+    margin: 2rem 0 3rem;
   }
   
-  .pagination-button {
+  .page-link {
+    padding: 0.5rem 1rem;
     background-color: var(--card-bg-color);
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
+    color: var(--text-color);
     cursor: pointer;
-    transition: all 0.2s;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
   }
   
-  .pagination-button:disabled {
+  .page-link.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    pointer-events: none;
   }
   
-  .pagination-button:not(:disabled):hover {
-    background-color: var(--primary-color);
+  .page-link:hover:not(.disabled):not(.active) {
+    background-color: var(--card-hover-color);
+  }
+  
+  .page-link.active {
+    background-color: #4299e1;
     color: white;
+    border-color: #4299e1;
+    font-weight: bold;
+    transform: scale(1.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
-  .page-numbers {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  .page-number {
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
-    width: 2.5rem;
-    height: 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  
-  .page-number:hover {
-    background-color: var(--primary-color-light);
-  }
-  
-  .page-number.active {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+  .page-link.page-number {
+    min-width: 2rem;
+    text-align: center;
   }
   
   .loading, .error-container, .empty-container {
