@@ -42,6 +42,7 @@
       
       <nav>
         <a href="/blog?page=1">Blog</a>
+        <a href="/tags">Tags</a>
         <a href="/about">About</a>
         <button 
           class="search-button" 
@@ -71,6 +72,7 @@
       <p>© 2025 andreas erni. All rights reserved.</p>
       <div class="footer-links">
         <a href="/about">About</a>
+        <a href="/tags">Tags</a>
         <a href="https://twitter.com">Twitter</a>
         <a href="https://github.com">GitHub</a>
       </div>

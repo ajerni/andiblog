@@ -1,7 +1,17 @@
-<script>
+<script lang="ts">
   import { extractDate } from '$lib/stores/posts';
+  import type { Post } from '$lib/stores/posts';
 
-  export let post;
+  export let post: Post;
+  
+  function handleTagClick(event: MouseEvent | KeyboardEvent, tag: string): void {
+    // Prevent the event from bubbling up to the post link
+    event.preventDefault();
+    event.stopPropagation();
+    
+    // Navigate to the tag page
+    window.location.href = `/tags/${encodeURIComponent(tag)}`;
+  }
 </script>
 
 <article class="post-card">
@@ -15,9 +25,19 @@
       <p class="post-excerpt">{post.excerpt}</p>
       
       <div class="post-tags">
-        {#each post.tags as tag}
-          <span class="tag">{tag}</span>
-        {/each}
+        {#if post.tags && post.tags.length > 0}
+          {#each post.tags as tag}
+            <span 
+              class="tag" 
+              on:click={(e) => handleTagClick(e, tag)}
+              on:keydown={(e) => e.key === 'Enter' && handleTagClick(e, tag)}
+              tabindex="0"
+              role="link"
+            >
+              {tag}
+            </span>
+          {/each}
+        {/if}
       </div>
     </div>
   </a>
@@ -107,6 +127,19 @@
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
     font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .tag:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .tag:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
   }
   
   @media (max-width: 640px) {

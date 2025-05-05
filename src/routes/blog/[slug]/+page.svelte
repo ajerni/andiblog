@@ -26,6 +26,11 @@
       isLoading = false;
     }
   });
+  
+  // Navigate to tag page
+  function navigateToTag(tag: string): void {
+    window.location.href = `/tags/${encodeURIComponent(tag)}`;
+  }
 </script>
 
 <svelte:head>
@@ -56,7 +61,12 @@
           <time datetime={post.published_date}>{formatDate(post.published_date)}</time>
           <div class="post-tags">
             {#each post.tags as tag}
-              <span class="tag">{tag}</span>
+              <a 
+                href={`/tags/${encodeURIComponent(tag)}`} 
+                class="tag"
+              >
+                {tag}
+              </a>
             {/each}
           </div>
         </div>
@@ -71,7 +81,10 @@
       </div>
       
       <footer class="post-footer">
-        <a href="/" class="back-link">← Back to all posts</a>
+        <div class="footer-links">
+          <a href="/blog" class="back-link">← Back to all posts</a>
+          <a href="/tags" class="tags-link">View all tags</a>
+        </div>
       </footer>
     </article>
   {:else}
@@ -124,6 +137,14 @@
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     border-radius: 9999px;
+    text-decoration: none;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+  
+  .tag:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
   }
   
   .featured-image-container {
@@ -187,7 +208,14 @@
     border-top: 1px solid var(--border-color);
   }
   
-  .back-link {
+  .footer-links {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .back-link, .tags-link {
     display: inline-block;
     color: var(--link-color);
     text-decoration: none;
@@ -195,7 +223,7 @@
     transition: color 0.2s;
   }
   
-  .back-link:hover {
+  .back-link:hover, .tags-link:hover {
     color: var(--link-hover-color);
   }
   

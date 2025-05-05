@@ -68,6 +68,8 @@ let fetchPromise: Promise<void> | null = null;
  * Fetch all posts from the API and update the store
  */
 export async function fetchAllPosts(): Promise<void> {
+  console.log('fetchAllPosts called, current fetchPromise:', !!fetchPromise);
+  
   // If we have an existing fetch in progress, return that promise
   if (fetchPromise) return fetchPromise;
   
@@ -75,11 +77,18 @@ export async function fetchAllPosts(): Promise<void> {
   let currentState: PostsStore;
   const unsubscribe = postsStore.subscribe(state => {
     currentState = state;
+    console.log('Current store state:', {
+      isLoaded: state.isLoaded,
+      isLoading: state.isLoading,
+      postCount: state.data.posts.length,
+      error: state.error
+    });
   });
   unsubscribe();
   
   // If already loaded and not in an error state, just return
   if (currentState!.isLoaded && !currentState!.error) {
+    console.log('Posts already loaded, returning early');
     return Promise.resolve();
   }
   
@@ -89,6 +98,7 @@ export async function fetchAllPosts(): Promise<void> {
   // Create the fetch promise
   fetchPromise = new Promise(async (resolve) => {
     try {
+      console.log('Starting API fetch...');
       // Request 100 posts to make sure we get all of them
       const response = await fetch(`${API_URL}/posts?limit=100&_=${Date.now()}`);
       
@@ -97,6 +107,13 @@ export async function fetchAllPosts(): Promise<void> {
       }
       
       const data: PostsData = await response.json();
+      console.log('API fetch successful, received posts:', data.posts.length);
+      
+      // Check if posts have tags
+      if (data.posts.length > 0) {
+        const samplePost = data.posts[0];
+        console.log('Sample post tags:', samplePost.tags, 'Type:', typeof samplePost.tags);
+      }
       
       postsStore.update(state => ({
         ...state,
@@ -119,6 +136,7 @@ export async function fetchAllPosts(): Promise<void> {
     } finally {
       // Clear the promise when done
       fetchPromise = null;
+      console.log('fetchPromise cleared');
     }
   });
   
