@@ -37,7 +37,8 @@
       <p>Some features of this blog include:</p>
       <ul>
         <li>Automated content generation with AI</li>
-        <li>Dark mode support for comfortable reading</li>
+        <li>Dark mode support</li>
+        <li>Super sophisticated search functionality</li>
         <li>...</li>
       </ul>
       
