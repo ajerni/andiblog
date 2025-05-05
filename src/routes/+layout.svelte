@@ -70,12 +70,10 @@
   
   <footer>
     <div class="footer-container">
-      <p>© 2025 andreas erni. All rights reserved.</p>
+      <p>© 2025 blog.andierni.com - All rights reserved.</p>
       <div class="footer-links">
-        <a href="/about">About</a>
-        <a href="/tags">Tags</a>
-        <a href="https://twitter.com">Twitter</a>
-        <a href="https://github.com">GitHub</a>
+        <a href="https://x.com/andreas_erni">Twitter</a>
+        <a href="https://github.com/ajerni">GitHub</a>
       </div>
     </div>
   </footer>
