@@ -36,8 +36,9 @@
   <header>
     <div class="header-container">
       <a href="/" class="logo">
-        <span class="emoji">😊</span>
+        <span class="emoji">🅰️</span>
         <span class="title">Andi's blog</span>
+        
       </a>
       
       <nav>
@@ -54,7 +55,7 @@
         </button>
         <button on:click={toggleDarkMode} class="theme-toggle" aria-label="Toggle dark mode">
           {#if $darkMode}
-            <span>🌞</span>
+            <span>🔅</span>
           {:else}
             <span>🌙</span>
           {/if}
