@@ -96,6 +96,11 @@
     font-weight: 600;
     color: var(--text-color);
     line-height: 1.3;
+    transition: color 0.2s ease;
+  }
+  
+  .post-card:hover .post-title {
+    color: #3b82f6; /* Teal color that works in both light and dark mode */
   }
   
   .post-date {

@@ -13,39 +13,36 @@
   <div class="about-content">
     <div class="profile-section">
       <div class="profile-image-container">
-        <img src="https://picsum.photos/400/400" alt="Profile" class="profile-image" />
+        <img src="andiprofile.jpg" alt="Profile" class="profile-image" />
       </div>
       
       <div class="bio">
-        <h2>Andreas Erni</h2>
+        <h2>Andi Erni</h2>
         <p class="tagline">Developer, Writer, Tech Enthusiast</p>
         
         <div class="social-links">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://x.com/andreas_erni" target="_blank" rel="noopener noreferrer">Twitter</a>
+          <a href="https://github.com/ajerni" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
       </div>
     </div>
     
     <div class="content-section">
       <h3>About Me</h3>
-      <p>Hi there! I'm Andreas Erni, a passionate web developer and tech enthusiast. This blog is my platform to share insights, tutorials, and thoughts on web development, programming, and technology.</p>
-      
-      <p>With a focus on modern web technologies like Svelte, PHP, TypeScript, and more, I aim to create content that's both educational and practical. Whether you're a seasoned developer or just starting your coding journey, I hope you'll find something valuable here.</p>
+      <p>Hi there! I'm Andi Erni, a passionate hobby developer and tech enthusiast. This blog is my platform to share insights, tutorials, and thoughts on web development, programming, and technology.</p>
       
       <h3>About This Blog</h3>
-      <p>This blog is built with SvelteKit for the frontend, which provides a lightning-fast user experience, and PHP on the backend to handle content management. The entire setup demonstrates how traditional backend technologies can work seamlessly with modern frontend frameworks.</p>
-      
+      <p>This blog serves mainly as my test platform for automation and AI tools. The content might change over time and is not always up to date.</p>
+
       <p>Some features of this blog include:</p>
       <ul>
-        <li>Responsive design that works on all devices</li>
+        <li>Automated content generation with AI</li>
         <li>Dark mode support for comfortable reading</li>
-        <li>Fast page loads with client-side navigation</li>
-        <li>REST API integration with PHP backend</li>
+        <li>...</li>
       </ul>
       
       <h3>Get in Touch</h3>
-      <p>Have questions, suggestions, or just want to say hello? Feel free to reach out through any of the social links above or visit my website at <a href="https://andierni.ch" target="_blank" rel="noopener noreferrer">andierni.ch</a>.</p>
+      <p>Have questions, suggestions, or just want to say hello? Feel free to reach out through any of the social links above or visit my website at <a href="https://www.andierni.ch" target="_blank" rel="noopener noreferrer">www.andierni.ch</a>.</p>
     </div>
   </div>
 </div>

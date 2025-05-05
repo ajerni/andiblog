@@ -112,6 +112,8 @@
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.2;
+    transition: color 0.3s ease;
+    color: var(--primary-color);
   }
   
   .post-meta {

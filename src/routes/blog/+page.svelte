@@ -101,6 +101,7 @@
   .hero {
     text-align: center;
     margin-bottom: 2rem;
+    color: var(--primary-color);
   }
   
   .title {
@@ -108,7 +109,10 @@
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--text-color);
+    transition: color 0.3s ease;
   }
+  
+
   
   .posts-grid {
     display: grid;

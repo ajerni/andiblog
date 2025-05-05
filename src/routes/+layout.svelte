@@ -36,7 +36,7 @@
   <header>
     <div class="header-container">
       <a href="/" class="logo">
-        <span class="emoji">🅰️</span>
+        <span class="emoji">😎</span>
         <span class="title">Andi's blog</span>
         
       </a>
