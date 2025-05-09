@@ -29,6 +29,7 @@
 
 <svelte:head>
   <title>Andi's blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 </svelte:head>
 
 <!-- Global styles -->
@@ -38,13 +39,14 @@
       <a href="/" class="logo">
         <span class="emoji">😎</span>
         <span class="title">Andi's blog</span>
-        
       </a>
       
       <nav>
         <a href="/blog?page=1">Blog</a>
         <a href="/tags">Tags</a>
         <a href="/about">About</a>
+        <a href="https://blogbackend.andierni.ch/">Admin</a>
+        
         <button 
           class="search-button" 
           aria-label="Search" 
@@ -142,6 +144,11 @@
     margin: 0;
     padding: 0;
     transition: background-color 0.3s ease;
+    box-sizing: border-box;
+  }
+  
+  :global(*, *:before, *:after) {
+    box-sizing: inherit;
   }
 
   .app {
@@ -156,12 +163,14 @@
     border-bottom: 1px solid var(--border-color);
     padding: 0.75rem 0;
     transition: background-color 0.3s ease;
+    width: 100%;
   }
 
   .header-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -236,7 +245,7 @@
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 2rem 1rem;
+    padding: 2rem 1.5rem;
   }
 
   footer {
@@ -244,12 +253,14 @@
     border-top: 1px solid var(--border-color);
     padding: 1.5rem 0;
     transition: background-color 0.3s ease;
+    width: 100%;
   }
 
   .footer-container {
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -270,11 +281,50 @@
     color: var(--link-hover-color);
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
+    .header-container {
+      padding: 0 1rem;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    
+    nav {
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      margin-right: 1rem;
+      font-size: 0.95rem;
+    }
+    
     .footer-container {
+      padding: 0 1rem;
       flex-direction: column;
       text-align: center;
       gap: 1rem;
+    }
+    
+    main {
+      padding: 1.5rem 1rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    nav {
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    nav a {
+      margin-right: 0.75rem;
+      font-size: 0.9rem;
+    }
+    
+    .search-button, .theme-toggle {
+      width: 1.75rem;
+      height: 1.75rem;
     }
   }
 </style> 
