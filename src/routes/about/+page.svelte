@@ -18,7 +18,7 @@
       
       <div class="bio">
         <h2>Andi Erni</h2>
-        <p class="tagline">Developer, Writer, Tech Enthusiast</p>
+        <p class="tagline">Developer & Tech Enthusiast</p>
         
         <div class="social-links">
           <a href="https://x.com/andreas_erni" target="_blank" rel="noopener noreferrer">Twitter</a>
@@ -29,21 +29,21 @@
     
     <div class="content-section">
       <h3>About Me</h3>
-      <p>Hi there! I'm Andi Erni, a passionate hobby developer and tech enthusiast. This blog is my platform to share insights, tutorials, and thoughts on web development, programming, and technology.</p>
+      <p>Hi there! I'm Andi Erni, a passionate hobby developer and tech enthusiast. This blog is my platform to share insights, tutorials, and thoughts on web development, programming, and technology. Well, it's not - it's just to test automated AI content generation and to showcase my skills 😉.</p>
       
       <h3>About This Blog</h3>
-      <p>This blog serves mainly as my test platform for automation and AI tools. The content might change over time and is not always up to date.</p>
+      <p>This blog serves mainly as my test platform for automation and AI tools. The content might change over time and is not always up to date and should not be taken seriously at all 🐛. It's not about the content, but about the technology and tools behind it.</p>
 
       <p>Some features of this blog include:</p>
       <ul>
-        <li>Automated content generation with AI</li>
-        <li>Dark mode support</li>
-        <li>Super sophisticated search functionality</li>
+        <li>AI generated blog posts 📝 and images 📷</li>
+        <li>Automated publishing 🤖 of the blog post</li>
+        <li>Super sophisticated search 👀 functionality</li>
         <li>...</li>
       </ul>
       
       <h3>Get in Touch</h3>
-      <p>Have questions, suggestions, or just want to say hello? Feel free to reach out through any of the social links above or visit my website at <a href="https://www.andierni.ch" target="_blank" rel="noopener noreferrer">www.andierni.ch</a>.</p>
+      <p>Have questions, project ideas, or just want to say hello? Feel free to reach out through any of the social links above or visit my website at <a href="https://www.andierni.tech" target="_blank" rel="noopener noreferrer">www.andierni.ch</a>.</p>
     </div>
   </div>
 </div>
