@@ -32,7 +32,7 @@
       <p>Hi there! I'm Andi Erni, a passionate hobby developer and tech enthusiast. This blog is my platform to share insights, tutorials, and thoughts on web development, programming, and technology. Well, it's not - it's just to test automated AI content generation and to showcase my skills 😉.</p>
       
       <h3>About This Blog</h3>
-      <p>This blog serves mainly as my test platform for automation and AI tools. The content might change over time and is not always up to date and should not be taken seriously at all 🐛. It's not about the content, but about the technology and tools behind it.</p>
+      <p>This blog serves mainly as my test platform for automation and AI tools. The content might change over time and is not always up to date and should not be taken too seriously at all 🐛. It's not about the content, but about the technology and tools behind it.</p>
 
       <p>Some features of this blog include:</p>
       <ul>
